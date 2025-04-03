@@ -1,0 +1,7 @@
+{
+    "python.defaultInterpreterPath": "/Users/mafrozahshaikh/Desktop/mutual-fund-dashboard/backend/venv/bin/python",
+    "python.analysis.extraPaths": [
+      "/Users/mafrozahshaikh/Desktop/mutual-fund-dashboard"
+    ],
+    "python.analysis.indexing": true
+  }
