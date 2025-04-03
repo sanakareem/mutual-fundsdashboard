@@ -1,6 +1,7 @@
 import os
-from pydantic.v1 import BaseSettings
+from pydantic_settings import BaseSettings
 from typing import List
+from secrets import token_urlsafe  # For dynamic secret key generation
 
 class Settings(BaseSettings):
     # API Settings
@@ -8,7 +9,7 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Mutual Fund Dashboard"
     
     # Security
-    SECRET_KEY: str  # No default - must be set in .env
+    SECRET_KEY: str  # No default - must be set in .env (or generated if missing)
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
     
@@ -32,3 +33,11 @@ class Settings(BaseSettings):
         extra = "forbid"  # Prevent silent failures with typos
 
 settings = Settings()
+
+# Dynamically generate SECRET_KEY if it's missing
+if not settings.SECRET_KEY:
+    settings.SECRET_KEY = token_urlsafe(32)  # Generate a random 32-character key
+
+# Print for debugging
+print("SECRET_KEY:", settings.SECRET_KEY)
+print("DATABASE_URL:", settings.DATABASE_URL)
